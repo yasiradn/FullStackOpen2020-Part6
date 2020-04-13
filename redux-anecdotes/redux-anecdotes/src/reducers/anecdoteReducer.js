@@ -9,7 +9,7 @@ const anecdotesAtStart = [
 
 const getId = () => (100000 * Math.random()).toFixed(0)
 
-const asObject = (anecdote) => {
+export const asObject = (anecdote) => {
   return {
     content: anecdote,
     id: getId(),
@@ -27,8 +27,11 @@ const reducer = (state = initialState, action) => {
       votes:action.votes
     }
     return state.map(anecdote => anecdote.id === action.id ? changedanecdote : anecdote)
+  } else if(action.type === 'add'){
+      return state.concat(action.data)
+  }else{
+    return state
   }
-  return state
 }
   
 
