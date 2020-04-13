@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {asObject} from './reducers/anecdoteReducer'
+import FormAnecdote from './components/AnecdoteForm'
 const App = () => {
   const anecdotes = useSelector(state => state.sort((a,b)=>b.votes-a.votes))
   const dispatch = useDispatch()
@@ -9,10 +9,6 @@ const App = () => {
     const getIndex = anecdotes.findIndex(anecdotes => anecdotes.id === id)
     const getVote = anecdotes[getIndex].votes +=1
     dispatch({type:'vote',content:anecdotes[getIndex].content, id:id, votes: getVote})
-  }
-  const addNew = e => {
-    e.preventDefault()   
-    dispatch({type:'add', data:asObject(e.target.anecdote.value)})
   }
   return (
     <div>
@@ -28,11 +24,7 @@ const App = () => {
           </div>
         </div>
       )}
-      <h2>create new</h2>
-      <form onSubmit={addNew}>
-        <div><input name="anecdote"/></div>
-        <button>create</button>
-      </form>
+      <FormAnecdote/>
     </div>
   )
 }
