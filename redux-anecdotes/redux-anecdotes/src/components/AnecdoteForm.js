@@ -1,13 +1,16 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import {asObject} from '../reducers/anecdoteReducer'
+import {setNotifyMessage} from '../reducers/notificationReducer'
 
 const FormAnecdote = (props) => {
 
     const dispatch = useDispatch()
     const addNew = e => {
-        e.preventDefault()   
+        e.preventDefault()
+        dispatch(setNotifyMessage(`You have created ${e.target.anecdote.value}`))
         dispatch({type:'add', data:asObject(e.target.anecdote.value)})
+        e.target.anecdote.value = ''
       }
     return(
         <div>
