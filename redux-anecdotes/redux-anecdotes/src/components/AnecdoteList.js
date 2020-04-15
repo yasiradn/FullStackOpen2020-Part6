@@ -1,11 +1,15 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { useSelector, useDispatch} from 'react-redux'
 import {setNotifyMessage} from '../reducers/notificationReducer'
+import anecService from '../service/anecdotesService'
+import {initialAnecdotes} from '../reducers/anecdoteReducer'
 const AnecdoteList = (props) => {
-   
+    const dispatch = useDispatch()
+    useEffect(() => {
+        anecService.getAll().then(data=>dispatch(initialAnecdotes(data)))
+    },[])
     const anecdotes = useSelector(state => state.anecdotes.sort((a,b)=>b.votes-a.votes))
     const filtering_content = useSelector(state=>state.filter.filter_content) 
-    const dispatch = useDispatch()
     const vote = (id) => {
         const getIndex = anecdotes.findIndex(anecdotes => anecdotes.id === id)
         dispatch(setNotifyMessage(`You have voted for '${anecdotes[getIndex].content}'`))
