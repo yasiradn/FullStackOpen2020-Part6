@@ -29,14 +29,20 @@ export const addAnecdotes = data => {
   }
 }
 
+export const addVoting = data => {
+  return async dispatch => {
+    const updatedAnecdote = await anecService.updateAnecdote(data)
+    console.log(updatedAnecdote)
+    dispatch({
+      type:'vote',
+      data: updatedAnecdote
+    })
+  }
+}
+
 const reducer = (state = [], action) => {
   if(action.type === 'vote') {
-    const changedanecdote = {
-      content: action.content,
-      id:action.id,
-      votes:action.votes
-    }
-    return state.map(anecdote => anecdote.id === action.id ? changedanecdote : anecdote)
+    return state.map(anecdote => anecdote.id === action.data.id ? action.data : anecdote)
   } else if(action.type === 'add'){
       return [...state, action.data]
   }else if(action.type === 'INIT'){
