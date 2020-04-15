@@ -1,5 +1,4 @@
 const notificationReducer = (state='', action) => {
-    console.log('ACTION', action)
     if(action.type === 'SET'){
        return{...state, message:action.data}
     } else if(action.type === 'DEL') {
@@ -9,10 +8,15 @@ const notificationReducer = (state='', action) => {
     }
 }
 
-export const setNotifyMessage = msg => {
-    return { type: 'SET', data: msg}
-}
-
+export const setNotifyMessage = (msg, duration) => {
+    return dispatch => {
+      dispatch({
+        type:'SET',
+        data: msg
+      })
+      setTimeout(()=>{dispatch(clearMessage())},duration * 1000)
+    }
+  }
 export const clearMessage = () => {
     return { type: 'DEL', data: ""}
 }

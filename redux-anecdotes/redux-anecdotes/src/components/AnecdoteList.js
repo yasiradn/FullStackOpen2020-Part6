@@ -11,7 +11,7 @@ const AnecdoteList = (props) => {
     const filtering_content = useSelector(state=>state.filter.filter_content) 
     const vote = (id) => {
         const getIndex = anecdotes.findIndex(anecdotes => anecdotes.id === id)
-        dispatch(setNotifyMessage(`You have voted for '${anecdotes[getIndex].content}'`))
+        dispatch(setNotifyMessage(`You have voted for '${anecdotes[getIndex].content}'`,2))
         const getVote = anecdotes[getIndex].votes +=1
         const changedanecdote = {
             content: anecdotes[getIndex].content,

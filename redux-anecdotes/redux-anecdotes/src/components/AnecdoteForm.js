@@ -7,7 +7,7 @@ const FormAnecdote = (props) => {
     const dispatch = useDispatch()
     const addNew = async e => {
         e.preventDefault()
-        dispatch(setNotifyMessage(`You have created ${e.target.anecdote.value}`))
+        dispatch(setNotifyMessage(`You have created ${e.target.anecdote.value}`,5))
         const anecdoteAsObject = asObject(e.target.anecdote.value)
         e.target.anecdote.value = '' 
         dispatch(addAnecdotes(anecdoteAsObject))
